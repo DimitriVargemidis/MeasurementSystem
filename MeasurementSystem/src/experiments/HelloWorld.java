@@ -40,6 +40,7 @@ public class HelloWorld extends Application {
         launch(args);
     }
     
+    /*Test*/
     private Grid graphGrid;
 	private Grid graphDisplayGrid;
 	private Grid channelOneInputGrid;

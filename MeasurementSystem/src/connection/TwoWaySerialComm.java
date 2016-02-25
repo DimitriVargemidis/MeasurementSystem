@@ -17,6 +17,7 @@ import java.io.OutputStream;
  */
 public class TwoWaySerialComm
 {
+	/*Test*/
     public TwoWaySerialComm()
     {
         super();
