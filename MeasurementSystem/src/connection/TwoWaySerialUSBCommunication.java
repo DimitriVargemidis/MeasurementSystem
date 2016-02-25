@@ -15,9 +15,9 @@ import java.io.OutputStream;
  * SerialPortEventListener to avoid polling.
  *
  */
-public class TwoWaySerialComm
+public class TwoWaySerialUSBCommunication
 {
-    public TwoWaySerialComm()
+    public TwoWaySerialUSBCommunication()
     {
         super();
     }
@@ -151,7 +151,7 @@ public class TwoWaySerialComm
     {
         try
         {
-            (new TwoWaySerialComm()).connect("COM4");
+            (new TwoWaySerialUSBCommunication()).connect("COM4");
         }
         catch ( Exception e )
         {
