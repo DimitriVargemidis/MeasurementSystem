@@ -1,4 +1,4 @@
-package experiments;
+package gui;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +35,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
  
-public class HelloWorld extends Application {
+public class GUI extends Application {
     public static void main(String[] args) {
         launch(args);
     }
@@ -52,7 +52,7 @@ public class HelloWorld extends Application {
 	private XYChart.Series<Number, Number> channelTwoData;
 	private MenuBar menuBar;
     
-    public HelloWorld() {
+    public GUI() {
     	initGraph();
     	initGraphGrid();
     	initGraphDisplayInputGrid();
@@ -85,7 +85,7 @@ public class HelloWorld extends Application {
         
         Scene scene = new Scene(masterGrid, 782, 590);
         scene.getStylesheets().add(
-        		HelloWorld.class.getResource("Style.css").toExternalForm());
+        		GUI.class.getResource("Style.css").toExternalForm());
         
         primaryStage.setTitle("Measurement System v0.1");
         primaryStage.setScene(scene);
