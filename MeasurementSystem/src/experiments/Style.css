@@ -1,0 +1,65 @@
+/* #mastergrid{
+    -fx-background-image: url("metal_floor.jpg");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 800 600;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
+}*/
+
+.chart-series-line {    
+    	-fx-stroke-width: 2px;
+    	-fx-effect: null;
+}
+
+.axis {
+	-fx-minor-tick-mark-visible: false;
+	-fx-tick-mark-visible: false;
+	-fx-tick-labels-visible: false;
+}
+ 
+.default-color0.chart-series-line {
+	-fx-stroke: #ffff00;
+}
+
+.default-color1.chart-series-line {
+	-fx-stroke: #00dfd9;
+}
+ 
+.chart-plot-background { 
+    -fx-background-color: #000000;
+}
+
+.chart-vertical-grid-lines {
+    	-fx-stroke: #ffffff;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #ffffff;
+}
+
+.menu-bar{
+  	-fx-background-color: #494949;
+  	-fx-border-color:  #aaaaaa;
+	-fx-border-width: 0
+}
+
+.menu-bar .label {
+    -fx-text-fill: #ffffff;
+
+}
+
+.menu:hover {
+	-fx-background-color: #0085ff;
+}
+
+.menu-item:hover {
+	-fx-background-color: #0085ff;
+}
+
+.menu-item{
+	-fx-background-color: #494949;
+}
+
+.menu .label{
+	-fx-text-fill: #ffffff;
+}
