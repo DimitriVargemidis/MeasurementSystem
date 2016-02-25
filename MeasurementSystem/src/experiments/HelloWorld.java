@@ -717,7 +717,7 @@ public class HelloWorld extends Application {
 	    
 	    return channelInputGrid;
 	}
-
+    
 	private Grid getChannelOneInputGrid() {
     	return this.channelOneInputGrid;
     }
