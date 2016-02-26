@@ -2,9 +2,11 @@ package gui;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import connection.TwoWaySerialUSBCommunication;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -51,8 +53,14 @@ public class GUI extends Application {
 	private XYChart.Series<Number, Number> channelOneData;
 	private XYChart.Series<Number, Number> channelTwoData;
 	private MenuBar menuBar;
-    
-    public GUI() {
+	private TwoWaySerialUSBCommunication communicationChannel;
+	
+	public GUI() {
+		this.communicationChannel = new TwoWaySerialUSBCommunication();
+	}
+	
+	@Override
+    public void init() {
     	initGraph();
     	initGraphGrid();
     	initGraphDisplayInputGrid();
@@ -113,14 +121,6 @@ public class GUI extends Application {
 		this.channelTwoData = new XYChart.Series<Number,Number>();
 		getChannelTwoData().setName("CH2");
 	    
-	    //calculate functions (dummy data)
-	    double x_temp = 0;
-	    for(int i=0; i<2000; i++) {
-	    	x_temp = i*0.01d;
-	    	getChannelOneData().getData().add(new XYChart.Data<Number,Number>(x_temp,Math.sin(x_temp/2.5d)));
-	    	getChannelTwoData().getData().add(new XYChart.Data<Number,Number>(x_temp,Math.cos(x_temp)+Math.sin(2*x_temp)));
-	    }
-	    
 	    lineChart.setAnimated(false);
 	    
 	    lineChart.getData().add(getChannelOneData());
@@ -128,6 +128,21 @@ public class GUI extends Application {
 	    
 	    this.graph = lineChart;
 	}
+    
+    public void setDataFromList(double[][] listChannelOne, double[][] listChannelTwo) {
+	    int N = Math.min(listChannelOne[0].length, listChannelTwo[0].length);
+	    XYChart.Series<Number,Number> series1 = new XYChart.Series<Number,Number>();
+	    XYChart.Series<Number,Number> series2 = new XYChart.Series<Number,Number>();
+	    
+	    for(int i=0; i<N; i++) {
+	    	series1.getData().add(new XYChart.Data<Number,Number>(listChannelOne[0][i],listChannelOne[1][i]));
+	    	System.out.println(listChannelOne[0][i] + ", " + listChannelOne[1][i]);
+	    	series2.getData().add(new XYChart.Data<Number,Number>(listChannelTwo[0][i],listChannelTwo[1][i]));
+	    }
+	    
+	    this.channelOneData = series1;
+	    this.channelTwoData = series2;
+    }
 
 	private void initGraphGrid() {
 		Label channelOne = new Label("CH1");
@@ -139,7 +154,6 @@ public class GUI extends Application {
 		Label chOneVoltNumber = new Label(500 + " mV");
 		Label chOneTimeText = new Label("Time/div: ");
 		Label chOneTimeNumber = new Label(50 + " µs");
-		
 		
 		Label channelTwo = new Label("CH2");
 		Label chTwoFrequencyText = new Label("Frequency: ");
@@ -621,6 +635,13 @@ public class GUI extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Updating plot and outputs");
+                getGraph().getData().removeAll(getChannelOneData());
+                getGraph().getData().removeAll(getChannelTwoData());
+                setDataFromList(
+        				getCommunicationChannel().getReceivedDataChannelOne(),
+        				getCommunicationChannel().getReceivedDataChannelTwo());
+                getGraph().getData().add(getChannelOneData());
+                getGraph().getData().add(getChannelTwoData());
             }
         });
     	
@@ -760,5 +781,9 @@ public class GUI extends Application {
 	
 	private XYChart.Series<Number, Number> getChannelTwoData() {
 		return this.channelTwoData;
+	}
+
+	private TwoWaySerialUSBCommunication getCommunicationChannel() {
+		return this.communicationChannel;
 	}
 }

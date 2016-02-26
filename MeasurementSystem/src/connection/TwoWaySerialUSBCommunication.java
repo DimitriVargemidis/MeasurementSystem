@@ -9,6 +9,7 @@ import gnu.io.SerialPortEventListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 /**
  * This version of the TwoWaySerialComm example makes use of the 
@@ -145,13 +146,10 @@ public class TwoWaySerialUSBCommunication
         }
     }
     
-
-    
-    public static void main ( String[] args )
-    {
+    public static void main ( String[] args ) {
         try
         {
-            (new TwoWaySerialUSBCommunication()).connect("COM4");
+            //(new TwoWaySerialUSBCommunication()).connect("COM4");
         }
         catch ( Exception e )
         {
@@ -159,6 +157,30 @@ public class TwoWaySerialUSBCommunication
             e.printStackTrace();
         }
     }
-
+    
+    public double[][] getReceivedDataChannelOne() {
+    	double[][] list = new double[2][1000];
+    	double c = 0.01d;
+    	double x;
+    	for(int i=0; i<1000; i++) {
+    		x = c*i;
+    		list[0][i] = x;
+    		list[1][i] = Math.sin(2d*2d*Math.PI*x); //frequency = 2Hz
+    		System.out.println(list[1][i]);
+    	}
+    	return list;
+    }
+    
+    public double[][] getReceivedDataChannelTwo() {
+    	double[][] list = new double[2][1000];
+    	double c = 0.01d;
+    	double x;
+    	for(int i=0; i<1000; i++) {
+    		x = c*i;
+    		list[0][i] = x;
+    		list[1][i] = Math.cos(2d*Math.PI*x)+Math.cos(6d*Math.PI*x); //frequency = 1+3Hz
+    	}
+    	return list;
+    }
 
 }
